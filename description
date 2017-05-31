@@ -1,0 +1,8 @@
+Napisati jednostavnu math quiz aplikaciju. Aplikacija treba da generiše random matematička pitanja iz oblasti:
+a. Sabiranja
+b. Oduzimanja
+c. Množenja
+d. Djeljenja
+e. Korjenovanja
+f. Kvadriranja
+Koristiti github kao issue tracking / to-do alat te commitati sav rad na aplikaciji koristeći feature branch workflow.
