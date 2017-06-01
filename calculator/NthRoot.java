@@ -13,7 +13,7 @@ public class NthRoot extends Equation {
 
 	@Override
 	public double calcualteEquation() {
-		return Math.pow(secondNumber, (1.0 / secondNumber));
+		return Math.pow(firstNumber, (1.0 / secondNumber));
 	}
 
 }
