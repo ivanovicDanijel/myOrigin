@@ -1,67 +1,149 @@
 package calculator;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class App {
 
+	static Scanner userInput = new Scanner(System.in);
+	
 	public static void main(String[] args) {
 
-		Calculator calc = new Calculator();
-		double a = 0;
-		double b = 0;
-		String sign = "";
-		double result = 0;
+		System.out.println("Welcome to simple calcualtor");
 		
-		System.out.println("Welcome!\n");
-		
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	try {
-		System.out.println("Please enter the first number");
-		a = Double.parseDouble(reader.readLine());
-		System.out.println("Please enter the sign of wanted operation :");
-		System.out.println("Allowed signs are: +, -, *, /, ^ for pow, sqrt for square root");
-		sign = reader.readLine();
-		System.out.println("Please enter the second number");
-		b = Double.parseDouble(reader.readLine());
-		
-	}catch(NumberFormatException e){
-		System.out.println("That's not a number!");
-		e.printStackTrace();
-	}catch(IOException e){
-		System.out.println("Problem with reading input");
-		e.printStackTrace();
+		while (true) {
+
+			double firstNumber = getFirstNumber();
+			String operator = getOperator();
+			double secondNumber = getSecondNumber();
+			double result = getResult(operator, firstNumber, secondNumber);
+			System.out.println("Result is " + result);
+			break;
+
+		}
+
 	}
-	
-	switch(sign){
-	case "+":
-		result = calc.add(a, b);
-		System.out.println("Result: " + result);
-		break;
-	case "-":
-		result = calc.substract(a, b);
-		System.out.println("Result: " + result);
-		break;
-	case "*":
-		result = calc.multiply(a, b);
-		System.out.println("Result: " + result);
-		break;
-	case "/":
-		result = calc.divide(a, b);
-		System.out.println("Result: " + result);
-		break;
-	case "^":
-		result = calc.POW(a, b);
-		System.out.println("Result: " + result);
-		break;
-	case "sqrt":
-		result = calc.squareRoot(a, b);
-		System.out.println("Result: " + result);
-		break;
+
+	private static double getFirstNumber() {
+		double firstNumber = 0;
+		while (true) {
+			try {
+				System.out.println("Enter first number");
+				firstNumber = inputNumber();
+
+				break;
+			}
+
+			catch (InputMismatchException e) {
+				System.out.println("Wrong input");
+			} catch (NumberFormatException ex) {
+				System.out.println("Wrong input");
+			}
+		}
+		return firstNumber;
+
+	}
+
+	private static String getOperator() {
+		String operator = "";
+
+		while (!validOperator(operator)) {
+			System.out.println("Enter assignment operator (+,-,*,/,sqrt,pow)");
+			operator = userInput.nextLine();
+		}
+
+		return operator;
+
+	}
+
+	private static boolean validOperator(String operator) {
+		operator = operator.toLowerCase();
+		switch (operator) {
+
+		case "+":
+			return true;
+
+		case "-":
+
+			return true;
+		case "*":
+
+			return true;
+		case "/":
+
+			return true;
+
+		case "sqrt":
+			return true;
+
+		case "pow":
+			return true;
+
 		default:
-			System.out.println("Wrong sign!");
-	
+			return false;
+
+		}
+
 	}
+
+	private static double getSecondNumber() {
+		double secondNumber = 0;
+		while (true) {
+			try {
+				System.out.println("Enter second number");
+				secondNumber = inputNumber();
+				break;
+			}
+
+			catch (InputMismatchException e) {
+				System.out.println("Wrong input");
+			} catch (NumberFormatException ex) {
+				System.out.println("Wrong input");
+			}
+		}
+
+		return secondNumber;
 	}
+
+	private static double inputNumber() {
+
+		double number = Double.parseDouble(userInput.nextLine());
+		return number;
+
+	}
+
+	private static double getResult(String operator, double firstNumber, double secondNumber) {
+		Equation eq;
+		switch (operator) {
+
+		case "+":
+			eq = new Sum(firstNumber, secondNumber);
+			return eq.calcualteEquation();
+
+		case "-":
+
+			eq = new Substraction(firstNumber, secondNumber);
+			return eq.calcualteEquation();
+		case "*":
+
+			eq = new Multiplying(firstNumber, secondNumber);
+			return eq.calcualteEquation();
+		case "/":
+
+			eq = new Division(firstNumber, secondNumber);
+			return eq.calcualteEquation();
+
+		case "sqrt":
+			eq = new NthRoot(firstNumber, secondNumber);
+			return eq.calcualteEquation();
+
+		case "pow":
+			eq = new NthPower(firstNumber, secondNumber);
+			return eq.calcualteEquation();
+
+		default:
+			return 0;
+		}
+	}
+
 }
