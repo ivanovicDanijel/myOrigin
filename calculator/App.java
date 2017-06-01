@@ -20,7 +20,8 @@ public class App {
 	try {
 		System.out.println("Please enter the first number");
 		a = Double.parseDouble(reader.readLine());
-		System.out.println("Please enter the sign of wanted operation (+,-,*,/) :");
+		System.out.println("Please enter the sign of wanted operation :");
+		System.out.println("Allowed signs are: +, -, *, /, ^ for pow, sqrt for square root");
 		sign = reader.readLine();
 		System.out.println("Please enter the second number");
 		b = Double.parseDouble(reader.readLine());
@@ -50,7 +51,14 @@ public class App {
 		result = calc.divide(a, b);
 		System.out.println("Result: " + result);
 		break;
-		
+	case "^":
+		result = calc.POW(a, b);
+		System.out.println("Result: " + result);
+		break;
+	case "sqrt":
+		result = calc.squareRoot(a, b);
+		System.out.println("Result: " + result);
+		break;
 		default:
 			System.out.println("Wrong sign!");
 	
